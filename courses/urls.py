@@ -10,8 +10,8 @@ appname = CoursesConfig.name
 urlpatterns = [
     path('lesson/', LessonListView.as_view(), name='lesson_list'),
     path('lesson/<int:pk>', LessonDetailView.as_view(), name='lesson_detail'),
-    path('lesson/create/', LessonListView.as_view(), name='lesson_create'),
-    path('lesson/update/<int:pk>', LessonUpdateView.as_view(), name='lesson_edit'),
+    path('lesson/create/', LessonCreateView.as_view(), name='lesson_create'),
+    path('lesson/edit/<int:pk>', LessonUpdateView.as_view(), name='lesson_edit'),
     path('lesson/delete/<int:pk>', LessonDestroyView.as_view(), name='lesson_delete'),
 ]
 
