@@ -6,7 +6,7 @@ from users.models import User
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        for i in range(5):
+        for i in range(10):
             user = User.objects.create(
                 email=f'user{i}@mail.ru',
                 first_name=f'Test{i}',

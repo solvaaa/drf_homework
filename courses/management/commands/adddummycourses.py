@@ -22,7 +22,8 @@ class Command(BaseCommand):
                 lesson = Lesson.objects.create(
                     name=f'Тест урок {i}, курс {pk}',
                     description=f'Это тестовый урок №{i} для курса {course_name}',
-                    video_url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+                    video_url='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                    course=course
                 )
                 lesson.save()
 
