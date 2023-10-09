@@ -24,6 +24,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='описание', **NULLABLE)
     preview = models.ImageField(verbose_name='превью', **NULLABLE)
     video_url = models.URLField(verbose_name='ссылка')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course', verbose_name='курс')
 
     def __str__(self):
         return self.name
@@ -31,3 +32,4 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = 'урок'
         verbose_name_plural = 'уроки'
+        ordering = ('course', 'name')
