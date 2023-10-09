@@ -24,7 +24,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='описание', **NULLABLE)
     preview = models.ImageField(verbose_name='превью', **NULLABLE)
     video_url = models.URLField(verbose_name='ссылка')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course',
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="courses",
                                verbose_name='курс', **NULLABLE)
 
     def __str__(self):
@@ -44,8 +44,7 @@ class Payment(models.Model):
         (CREDIT, 'безнал')
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='user', verbose_name='пользователь')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
     date_payment = models.DateTimeField(auto_now_add=True, verbose_name='дата оплаты')
     course = models.ForeignKey(Course, verbose_name='оплаченный курс',
                                on_delete=models.SET_NULL, **NULLABLE)
