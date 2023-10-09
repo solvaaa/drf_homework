@@ -11,11 +11,11 @@ class Command(BaseCommand):
         users = list(User.objects.all())
         lessons = list(Lesson.objects.all())
         courses = list(Course.objects.all())
-        courses.extend(lessons)
         num_of_users_paid = randint(min(4, len(users)), len(users))
         users_paid = sample(users, num_of_users_paid)
         for user in users_paid:
-            paid_for = choice(courses)
+            choices = choice([lessons, courses])
+            paid_for = choice(choices)
             course_paid = paid_for if isinstance(paid_for, Course) else None
             lesson_paid = paid_for if isinstance(paid_for, Lesson) else None
             payment = Payment.objects.create(
