@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.core.management import BaseCommand
 
 from courses.models import Lesson, Course, Payment
@@ -17,10 +19,11 @@ class Command(BaseCommand):
             for user in users_paid:
                 choices = choice([lessons, courses])
                 paid_for = choice(choices)
-                course_paid = paid_for if isinstance(paid_for, Course) else None
                 lesson_paid = paid_for if isinstance(paid_for, Lesson) else None
+                course_paid = paid_for if lesson_paid is None else None
                 payment = Payment.objects.create(
                     user=user,
+                    date_payment=datetime.now() - timedelta(days=randint(1, 100), hours=randint(1,23), minutes=randint(1,59)),
                     course=course_paid,
                     lesson=lesson_paid,
                     total=randint(100, 100000),
