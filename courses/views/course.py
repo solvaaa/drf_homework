@@ -3,6 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from courses.models import Course
 from courses.serializers.course import CourseSerializer
+from users.models import UserRoles
 from users.permissions import IsOwner, IsSuperUser, IsModerator
 
 
@@ -36,3 +37,9 @@ class CourseViewSet(ModelViewSet):
         obj.owner = self.request.user
         obj.save()
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.role == UserRoles.MODERATOR:
+            return Course.objects.all()
+        else:
+            return Course.objects.filter(owner=self.request.user)
