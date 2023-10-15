@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from courses.models import Course, Lesson, Payment
+from courses.models import Course, Lesson, Payment, Subscription
 
 # Register your models here.
 
@@ -8,3 +8,4 @@ from courses.models import Course, Lesson, Payment
 admin.site.register(Course)
 admin.site.register(Lesson)
 admin.site.register(Payment)
+admin.site.register(Subscription)
