@@ -16,13 +16,7 @@ class LessonDetailView(RetrieveAPIView):
 class LessonListView(ListAPIView):
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.role == UserRoles.MODERATOR:
-            return Lesson.objects.all()
-        else:
-            return Lesson.objects.filter(owner=self.request.user)
+    queryset = Lesson.objects.all()
 
 
 class LessonCreateView(CreateAPIView):

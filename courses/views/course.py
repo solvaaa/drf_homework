@@ -36,10 +36,3 @@ class CourseViewSet(ModelViewSet):
         obj = serializer.save()
         obj.owner = self.request.user
         obj.save()
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.role == UserRoles.MODERATOR:
-            return Course.objects.all()
-        else:
-            return Course.objects.filter(owner=self.request.user)
