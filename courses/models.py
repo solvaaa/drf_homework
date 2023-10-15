@@ -28,6 +28,8 @@ class Lesson(models.Model):
     video_url = models.URLField(verbose_name='ссылка')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="courses",
                                verbose_name='курс', **NULLABLE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,
+                              null=True, verbose_name='пользователь')
 
     def __str__(self):
         return self.name
