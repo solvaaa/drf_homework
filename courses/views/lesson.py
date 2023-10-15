@@ -21,6 +21,12 @@ class LessonListView(ListAPIView):
 class LessonCreateView(CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        obj = serializer.save()
+        obj.owner = self.request.user
+        obj.save()
 
 
 class LessonUpdateView(UpdateAPIView):

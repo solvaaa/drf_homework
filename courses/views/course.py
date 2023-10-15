@@ -31,3 +31,8 @@ class CourseViewSet(ModelViewSet):
         self.permission_classes = [IsOwner | IsSuperUser]
         return super().destroy(request, *args, **kwargs)
 
+    def perform_create(self, serializer):
+        obj = serializer.save()
+        obj.owner = self.request.user
+        obj.save()
+
