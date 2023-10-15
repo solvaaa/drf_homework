@@ -3,7 +3,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from courses.models import Lesson
 from courses.serializers.lesson import LessonSerializer
-from users.models import UserRoles
 from users.permissions import IsOwner, IsModerator, IsSuperUser
 
 
