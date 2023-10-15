@@ -5,7 +5,7 @@ from courses.apps import CoursesConfig
 from courses.views.lesson import *
 from courses.views.course import *
 from courses.views.payment import *
-from courses.views.subscription import SubscriptionCreateView
+from courses.views.subscription import SubscriptionCreateView, SubscriptionDeleteView
 
 appname = CoursesConfig.name
 
@@ -22,6 +22,7 @@ urlpatterns += [
     path('lesson/delete/<int:pk>', LessonDestroyView.as_view(), name='lesson_delete'),
     path('payments/', PaymentListView.as_view(), name='payments'),
     path('course/<int:course_id>/subscribe/', SubscriptionCreateView.as_view(), name='subscribe'),
+    path('course/<int:course_id>/unsubscribe/', SubscriptionDeleteView.as_view(), name='unsubscribe'),
 
 ]
 
