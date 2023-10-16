@@ -2,6 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from courses.models import Course
+from courses.paginators import MyPagination
 from courses.serializers.course import CourseSerializer
 from users.models import UserRoles
 from users.permissions import IsOwner, IsSuperUser, IsModerator
@@ -11,6 +12,7 @@ class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = MyPagination
 
     def create(self, request, *args, **kwargs):
         self.permission_classes = [IsAuthenticated]
@@ -36,10 +38,3 @@ class CourseViewSet(ModelViewSet):
         obj = serializer.save()
         obj.owner = self.request.user
         obj.save()
-
-    def get_queryset(self):
-        user = self.request.user
-        if user.role == UserRoles.MODERATOR:
-            return Course.objects.all()
-        else:
-            return Course.objects.filter(owner=self.request.user)
