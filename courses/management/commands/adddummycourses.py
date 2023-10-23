@@ -11,10 +11,12 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         users = list(User.objects.filter(role=UserRoles.MEMBER))
         for i in range(5):
+            price = randint(1, 10) * 100
             course = Course.objects.create(
                 name=f'Тест курс {i}',
                 description=f'Это тестовый курс №{i}',
-                owner=choice(users)
+                owner=choice(users),
+                price=price
             )
             course.save()
 

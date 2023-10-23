@@ -15,8 +15,10 @@ class CourseViewSet(ModelViewSet):
     permission_classes_by_action = {'create': [IsAuthenticated & ~IsModerator],
                                     'list': [IsAuthenticated],
                                     'update': [IsOwner | IsModerator | IsSuperUser],
+                                    'partial_update': [IsOwner | IsModerator | IsSuperUser],
                                     'retrieve': [IsOwner | IsModerator | IsSuperUser],
-                                    'destroy': [IsOwner | IsSuperUser]}
+                                    'destroy': [IsOwner | IsSuperUser]
+                                    }
 
 
     def perform_create(self, serializer):
@@ -24,5 +26,8 @@ class CourseViewSet(ModelViewSet):
         obj.owner = self.request.user
         obj.save()
 
-    def get_permissions(self):
-        return [permission() for permission in self.permission_classes_by_action[self.action]]
+    def get_permissions(self, *args, **kwargs):
+        try:
+            return [permission() for permission in self.permission_classes_by_action[self.action]]
+        except KeyError:
+            return super().get_permissions(*args, **kwargs)

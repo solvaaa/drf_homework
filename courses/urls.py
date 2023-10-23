@@ -23,6 +23,7 @@ urlpatterns += [
     path('payments/', PaymentListView.as_view(), name='payments'),
     path('course/<int:course_id>/subscribe/', SubscriptionCreateView.as_view(), name='subscribe'),
     path('course/<int:course_id>/unsubscribe/', SubscriptionDeleteView.as_view(), name='unsubscribe'),
+    path('course/<int:course_id>/buy', PaymentPayView.as_view(), name='buy'),
 
 ]
 
