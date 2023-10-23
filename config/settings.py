@@ -153,3 +153,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated'
     ]
 }
+
+STRIPE_SECRET_KEY=os.getenv('STRIPE_SECRET_KEY')
