@@ -1,5 +1,3 @@
-from math import ceil
-
 import stripe
 from stripe.error import InvalidRequestError
 

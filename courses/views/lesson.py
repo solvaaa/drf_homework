@@ -8,12 +8,14 @@ from users.permissions import IsOwner, IsModerator, IsSuperUser
 
 
 class LessonDetailView(RetrieveAPIView):
+    """Shows details of the lesson"""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsOwner|IsModerator|IsSuperUser]
 
 
 class LessonListView(ListAPIView):
+    """Shows list of available lessons"""
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated]
     queryset = Lesson.objects.all()
@@ -21,6 +23,7 @@ class LessonListView(ListAPIView):
 
 
 class LessonCreateView(CreateAPIView):
+    """Creates new lesson"""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated & ~IsModerator]
@@ -32,12 +35,14 @@ class LessonCreateView(CreateAPIView):
 
 
 class LessonUpdateView(UpdateAPIView):
+    """Modifies lesson"""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsOwner | IsModerator | IsSuperUser]
 
 
 class LessonDestroyView(DestroyAPIView):
+    """Deletes lesson"""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsOwner | IsSuperUser]

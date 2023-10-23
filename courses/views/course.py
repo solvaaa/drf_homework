@@ -1,10 +1,10 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from courses.models import Course
 from courses.paginators import MyPagination
 from courses.serializers.course import CourseSerializer
-from users.models import UserRoles
 from users.permissions import IsOwner, IsSuperUser, IsModerator
 
 
@@ -12,6 +12,7 @@ class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     pagination_class = MyPagination
+    http_method_names = ['get', 'post', 'put', 'delete']
     permission_classes_by_action = {'create': [IsAuthenticated & ~IsModerator],
                                     'list': [IsAuthenticated],
                                     'update': [IsOwner | IsModerator | IsSuperUser],
@@ -19,7 +20,6 @@ class CourseViewSet(ModelViewSet):
                                     'retrieve': [IsOwner | IsModerator | IsSuperUser],
                                     'destroy': [IsOwner | IsSuperUser]
                                     }
-
 
     def perform_create(self, serializer):
         obj = serializer.save()
