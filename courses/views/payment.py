@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
@@ -21,9 +23,7 @@ class PaymentPayView(APIView):
 
     def post(self, request, course_id=None):
         course = Course.objects.get(id=course_id)
-        product = pay.get_stripe_product(course)
         price = pay.get_stripe_price(course)
         response = pay.create_session(price)
 
         return Response({"url": response["url"]})
-

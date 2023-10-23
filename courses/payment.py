@@ -39,9 +39,9 @@ def get_stripe_price(product):
     return create_stripe_price(product)
 
 
-def create_session(price, product=None):
+def create_session(price):
     session = stripe.checkout.Session.create(
-        success_url="https://example.com/success",
+        success_url="http://127.0.0.1:8000/course/",
         line_items=[
             {
                 "price": price["id"],
@@ -51,3 +51,9 @@ def create_session(price, product=None):
         mode="payment",
     )
     return session
+
+
+def get_session(session_id):
+    return stripe.checkout.Session.retrieve(
+              session_id,
+            )
