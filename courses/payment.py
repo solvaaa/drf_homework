@@ -22,15 +22,17 @@ def get_stripe_product(product):
 
 
 def create_stripe_price(product):
+    stripe_product = get_stripe_product(product)
     return stripe.Price.create(
         unit_amount=int(product.price * 100),
         currency="usd",
-        product=str(product.id),
+        product=stripe_product.id
     )
 
 
 def get_stripe_price(product):
-    prices_list = stripe.Price.list(type="one_time", product=product.id, currency="usd")
+    stripe_product = get_stripe_product(product)
+    prices_list = stripe.Price.list(type="one_time", product=stripe_product.id, currency="usd")
     for price in prices_list["data"]:
         if int(product.price * 100) == price["unit_amount"]:
             return price
